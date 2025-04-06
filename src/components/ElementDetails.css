@@ -1,0 +1,983 @@
+.element-details-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.75);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  backdrop-filter: blur(8px);
+  overflow: hidden;
+}
+
+.element-details-modal {
+  width: 90%;
+  max-width: 1000px;
+  height: 90vh;
+  background: #ffffff;
+  border-radius: 20px;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+  animation: modalSlideIn 0.3s ease-out;
+}
+
+.element-header {
+  flex-shrink: 0;
+  padding: 2rem;
+  position: relative;
+  color: white;
+  background: linear-gradient(135deg, var(--element-color) 0%, var(--element-color-dark) 100%);
+}
+
+.element-content {
+  flex: 1;
+  overflow-y: auto;
+  padding: 2rem;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(0, 0, 0, 0.2) transparent;
+}
+
+.element-content::-webkit-scrollbar {
+  width: 8px;
+}
+
+.element-content::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.element-content::-webkit-scrollbar-thumb {
+  background-color: rgba(0, 0, 0, 0.2);
+  border-radius: 4px;
+}
+
+.info-grid-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 1.5rem;
+  padding-bottom: 1rem;
+}
+
+.element-header-content {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 2rem;
+  align-items: center;
+}
+
+.element-identifier {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  padding: 1rem;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  backdrop-filter: blur(5px);
+}
+
+.atomic-property {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  padding: 0.75rem;
+}
+
+.property-pair {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  width: 100%;
+}
+
+.property-label {
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.element-number,
+.element-mass,
+.block-value {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: white;
+}
+
+.oxidation-item {
+  width: 100%;
+  padding: 0.75rem;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  backdrop-filter: blur(5px);
+}
+
+.oxidation-item .property-pair {
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+@media (max-width: 768px) {
+  .atomic-property {
+    padding: 0.5rem;
+  }
+
+  .property-pair {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 0.25rem;
+  }
+}
+
+.block-value {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: white;
+}
+
+.element-primary {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
+
+.oxidation-item {
+  margin-top: 1rem;
+  padding: 0.2rem;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  backdrop-filter: blur(5px);
+}
+
+@media (max-width: 768px) {
+  .element-header-content {
+    gap: 1.5rem;
+  }
+
+  .element-identifier {
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    padding: 0.75rem;
+  }
+
+  .atomic-property {
+    padding: 0.25rem;
+  }
+}
+
+.element-number {
+  font-size: 2rem;
+  font-weight: 700;
+}
+
+.element-mass {
+  font-size: 1.1rem;
+  opacity: 0.9;
+}
+
+.element-primary {
+  text-align: center;
+}
+
+.element-symbol {
+  font-size: 6rem;
+  font-weight: 800;
+  margin: 0;
+  line-height: 1;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.element-name {
+  font-size: 2.5rem;
+  margin: 0.5rem 0;
+  font-weight: 600;
+}
+
+.element-category-badge {
+  display: inline-block;
+  padding: 0.5rem 1rem;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 20px;
+  backdrop-filter: blur(5px);
+  font-size: 1.1rem;
+}
+
+.element-content {
+  padding: 2rem;
+  overflow-y: auto;
+}
+
+.info-grid-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 1.5rem;
+}
+
+.info-card {
+  background: #ffffff;
+  border-radius: 12px;
+  padding: 1.25rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  transition: transform 0.2s, box-shadow 0.2s;
+  color: #333;
+  border-top: 4px solid var(--element-color);
+}
+
+.card-title {
+  color: var(--element-color);
+  font-size: 1.3rem;
+  margin-bottom: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 1px solid #eee;
+}
+
+.card-title i {
+  font-size: 1.1rem;
+  opacity: 0.9;
+}
+
+.info-grid-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1rem;
+  padding-bottom: 1rem;
+}
+
+.properties-table {
+  margin: 0.75rem 0;
+}
+
+.properties-table table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  font-size: 0.95rem;
+}
+
+.properties-table th,
+.properties-table td {
+  padding: 0.75rem 1rem;
+  border-bottom: 1px solid #eee;
+}
+
+.properties-table th {
+  background: var(--element-color);
+  color: white;
+  font-size: 0.9rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.electron-config {
+  background: #f8f9fa;
+  padding: 0.75rem;
+  border-radius: 8px;
+  margin-bottom: 0.75rem;
+}
+
+/* Update hover effect */
+.info-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+}
+
+/* Update media queries */
+@media (max-width: 768px) {
+  .info-card {
+    padding: 1rem;
+  }
+
+  .card-title {
+    font-size: 1.2rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .properties-table th,
+  .properties-table td {
+    padding: 0.6rem 0.75rem;
+  }
+}
+
+.info-card h3 {
+  color: #1a1a1a;
+  font-size: 1.4rem;
+  margin-bottom: 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.info-label {
+  color: #666;
+  font-size: 0.9rem;
+  font-weight: 500;
+  display: block;
+  margin-bottom: 0.3rem;
+}
+
+.info-value {
+  color: #1a1a1a;
+  font-size: 1.1rem;
+  font-weight: 500;
+}
+
+.electron-config {
+  background: #f8f9fa;
+  padding: 1rem;
+  border-radius: 10px;
+  margin-bottom: 1rem;
+}
+
+.electron-config p {
+  color: #1a1a1a;
+  font-family: monospace;
+  font-size: 1.1rem;
+  line-height: 1.5;
+  word-break: break-word;
+}
+
+.block-badge {
+  display: inline-block;
+  padding: 0.25rem 0.75rem;
+  background: var(--element-color);
+  color: white;
+  border-radius: 5px;
+  font-weight: 600;
+}
+
+.temperature-display {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.temperature-display span {
+  display: inline-block;
+  background: #f8f9fa;
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  font-family: monospace;
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: #1a1a1a;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+/* Remove the old thermal-grid and thermal-item styles if they exist */
+.state-badge {
+  padding: 0.5rem 1rem;
+  border-radius: 5px;
+  font-weight: 600;
+  color: #1a1a1a;
+}
+
+.state-badge.positive {
+  background: #d4edda;
+  color: #155724;
+}
+
+.state-badge.negative {
+  background: #f8d7da;
+  color: #721c24;
+}
+
+.element-header {
+  color: white;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+}
+
+.element-category-badge {
+  color: white;
+  font-weight: 500;
+}
+
+.discovery-date span,
+.discoverer span {
+  color: #1a1a1a;
+  font-size: 1.1rem;
+}
+
+.history-content {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.discovery-date, .discoverer {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.close-button {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  background: rgba(255, 255, 255, 0.2);
+  border: none;
+  color: white;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  font-size: 1.5rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.2s;
+}
+
+.close-button:hover {
+  background: rgba(255, 255, 255, 0.3);
+}
+
+@keyframes modalSlideIn {
+  from {
+    transform: translateY(20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@media (max-width: 768px) {
+  .element-details-modal {
+    width: 100%;
+    height: 100vh;
+    border-radius: 0;
+  }
+
+  .element-content {
+    padding: 1rem;
+  }
+
+  .element-header-content {
+    grid-template-columns: 1fr;
+    text-align: center;
+  }
+
+  .element-identifier {
+    flex-direction: row;
+    justify-content: center;
+    gap: 2rem;
+  }
+
+  .element-symbol {
+    font-size: 4rem;
+  }
+
+  .element-name {
+    font-size: 2rem;
+  }
+
+  .info-grid-container {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Add these new styles */
+.properties-table {
+  width: 100%;
+  overflow-x: auto;
+  margin: 1rem 0;
+}
+
+.properties-table table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  background: #fff;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.properties-table th,
+.properties-table td {
+  padding: 1rem 1.5rem;
+  text-align: left;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+/* Update element category colors to ensure text visibility */
+:root {
+  --alkali-metal-color: #ff6b6b;
+  --alkaline-earth-metal-color: #ffd93d;
+  --transition-metal-color: #4dabf7;
+  --post-transition-metal-color: #66BB6A;
+  --metalloid-color: #AB47BC;
+  --nonmetal-color: #26A69A;
+  --halogen-color: #EC407A;
+  --noble-gas-color: #7E57C2;
+  --lanthanide-color: #FF7043;
+  --actinide-color: #FF5722;
+}
+/* Element category colors with gradients */
+.alkali-metal { background: linear-gradient(135deg, #FF4B4B, #FF7676); }
+.alkaline-earth-metal { background: linear-gradient(135deg, #FFA726, #FFB74D); }
+.transition-metal { background: linear-gradient(135deg, #42A5F5, #64B5F6); }
+.post-transition-metal { background: linear-gradient(135deg, #66BB6A, #81C784); }
+.metalloid { background: linear-gradient(135deg, #AB47BC, #BA68C8); }
+.nonmetal { background: linear-gradient(135deg, #26A69A, #4DB6AC); }
+.halogen { background: linear-gradient(135deg, #EC407A, #F06292); }
+.noble-gas { background: linear-gradient(135deg, #7E57C2, #9575CD); }
+.lanthanide { background: linear-gradient(135deg, #FF7043, #FF8A65); }
+.actinide { background: linear-gradient(135deg, #FF5722, #FF7043); }
+
+.properties-table thead.alkali-metal th { background-color: var(--alkali-metal-color); }
+.properties-table thead.alkaline-earth-metal th { background-color: var(--alkaline-earth-metal-color); }
+.properties-table thead.transition-metal th { background-color: var(--transition-metal-color); }
+.properties-table thead.post-transition-metal th { background-color: var(--post-transition-metal-color); }
+.properties-table thead.metalloid th { background-color: var(--metalloid-color); }
+.properties-table thead.nonmetal th { background-color: var(--nonmetal-color); }
+.properties-table thead.halogen th { background-color: var(--halogen-color); }
+.properties-table thead.noble-gas th { background-color: var(--noble-gas-color); }
+.properties-table thead.lanthanide th { background-color: var(--lanthanide-color); }
+.properties-table thead.actinide th { background-color: var(--actinide-color); }
+
+.properties-table thead th {
+  color: white;
+  padding: 1rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.properties-table td {
+  font-size: 1.2rem;
+  color: #333;
+}
+
+.properties-table td:first-child {
+  font-weight: 500;
+  color: #666;
+  width: 40%;
+}
+
+.properties-table td:last-child {
+  font-weight: 600;
+  color: #1a1a1a;
+}
+
+.properties-table tbody tr:hover {
+  background-color: #f8f9fa;
+}
+
+.properties-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+@media (max-width: 768px) {
+  .properties-table th,
+  .properties-table td {
+    padding: 0.8rem 1rem;
+    font-size: 1rem;
+  }
+}
+
+.atomic-property {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.property-label {
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  opacity: 0.9;
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.header-info {
+  margin-top: 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
+
+.oxidation-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 0.5rem;
+}
+
+.oxidation-states {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.2rem;
+  justify-content: center;
+}
+
+.state-badge {
+  padding: 0.25rem 0.75rem;
+  border-radius: 15px;
+  font-weight: 600;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(5px);
+}
+
+.state-badge.positive {
+  color: #656464;
+}
+
+.state-badge.negative {
+  color: #656464;
+}
+
+@media (max-width: 768px) {
+  .header-info {
+    gap: 0.75rem;
+  }
+  
+  .oxidation-states {
+    gap: 0.3rem;
+  }
+}
+
+.discovery-info {
+  margin-top: 1rem;
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  color: rgba(255, 255, 255, 0.9);
+  font-size: 1.1rem;
+}
+
+.discovery-item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: rgba(255, 255, 255, 0.1);
+  padding: 0.5rem 1rem;
+  border-radius: 20px;
+  backdrop-filter: blur(5px);
+}
+
+.discovery-item i {
+  font-size: 1rem;
+  opacity: 0.8;
+}
+
+@media (max-width: 768px) {
+  .discovery-info {
+    flex-direction: column;
+    gap: 0.5rem;
+    align-items: center;
+  }
+}
+.info-cards-container {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  padding: 1rem;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.info-card {
+  border-radius: 12px;
+  background: white;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  overflow: hidden;
+}
+
+.card-title {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 1rem;
+  background: white;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  user-select: none;
+}
+
+.card-title i:last-child {
+  margin-left: auto;
+  font-size: 0.9rem;
+  opacity: 0.6;
+}
+
+.card-title:hover {
+  background: rgba(0, 0, 0, 0.02);
+}
+
+.card-title.active {
+  background: var(--element-color);
+  color: white;
+}
+
+.card-content {
+  animation: slideDown 0.3s ease-out;
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Update existing property-group styles */
+.property-group {
+  padding: 1rem;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+.property-group:last-child {
+  border-bottom: none;
+}
+
+.properties-table {
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.properties-table table {
+  width: 100%;
+  border-collapse: collapse;
+  background: white;
+}
+
+.properties-table thead {
+  color: white;
+}
+
+.properties-table thead tr {
+  background-color: inherit;
+}
+
+.properties-table th {
+  padding: 1rem;
+  text-align: left;
+  font-weight: 600;
+}
+
+/* Element category background colors for table headers */
+.properties-table.alkali-metal thead { background-color: var(--alkali-metal-color); }
+.properties-table.alkaline-earth-metal thead { background-color: var(--alkaline-earth-metal-color); }
+.properties-table.transition-metal thead { background-color: var(--transition-metal-color); }
+.properties-table.post-transition-metal thead { background-color: var(--post-transition-metal-color); }
+.properties-table.metalloid thead { background-color: var(--metalloid-color); }
+.properties-table.nonmetal thead { background-color: var(--nonmetal-color); }
+.properties-table.halogen thead { background-color: var(--halogen-color); }
+.properties-table.noble-gas thead { background-color: var(--noble-gas-color); }
+.properties-table.lanthanide thead { background-color: var(--lanthanide-color); }
+.properties-table.actinide thead { background-color: var(--actinide-color); }
+
+.properties-table td {
+  padding: 1rem;
+  border-bottom: 1px solid #eee;
+}
+
+.properties-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+@media (max-width: 768px) {
+  .properties-table th,
+  .properties-table td {
+    padding: 0.8rem 1rem;
+    font-size: 1rem;
+  }
+}
+
+.atomic-property {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.property-label {
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  opacity: 0.9;
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.header-info {
+  margin-top: 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
+
+.oxidation-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 0.5rem;
+}
+
+.oxidation-states {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.2rem;
+  justify-content: center;
+}
+
+.state-badge {
+  padding: 0.25rem 0.75rem;
+  border-radius: 15px;
+  font-weight: 600;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(5px);
+}
+
+.state-badge.positive {
+  color: #656464;
+}
+
+.state-badge.negative {
+  color: #656464;
+}
+
+@media (max-width: 768px) {
+  .header-info {
+    gap: 0.75rem;
+  }
+  
+  .oxidation-states {
+    gap: 0.3rem;
+  }
+}
+
+.discovery-info {
+  margin-top: 1rem;
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  color: rgba(255, 255, 255, 0.9);
+  font-size: 1.1rem;
+}
+
+.discovery-item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: rgba(255, 255, 255, 0.1);
+  padding: 0.5rem 1rem;
+  border-radius: 20px;
+  backdrop-filter: blur(5px);
+}
+
+.discovery-item i {
+  font-size: 1rem;
+  opacity: 0.8;
+}
+
+@media (max-width: 768px) {
+  .discovery-info {
+    flex-direction: column;
+    gap: 0.5rem;
+    align-items: center;
+  }
+}
+.card-content {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  padding: 1rem;
+}
+
+.property-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  padding: 0.75rem;
+  background: rgba(0, 0, 0, 0.04);
+  border-radius: 8px;
+  transition: background-color 0.2s;
+}
+
+.property-group:hover {
+  background: rgba(0, 0, 0, 0.08);
+}
+
+.property-group .property-label {
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: rgba(0, 0, 0, 0.6);
+}
+
+.property-group .property-value {
+  font-size: 1.2rem;
+  font-weight: 500;
+  color: #333;
+}
+
+.electron-config {
+  font-family: monospace;
+  letter-spacing: 0.5px;
+}
+
+.block-badge {
+  display: inline-block;
+  padding: 0.25rem 1rem;
+  background: var(--element-color);
+  color: white;
+  border-radius: 4px;
+  font-weight: 600;
+}
+
+.temperature-display {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.temperature-display span {
+  font-size: 1.2rem;
+  font-weight: 500;
+  color: #333;
+  background: rgba(0, 0, 0, 0.04);
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+}
+
+@media (max-width: 768px) {
+  .card-content {
+    padding: 0.75rem;
+  }
+
+  .property-group {
+    padding: 0.5rem;
+  }
+
+  .property-group .property-value {
+    font-size: 1.1rem;
+  }
+
+  .temperature-display {
+    gap: 0.5rem;
+  }
+}
